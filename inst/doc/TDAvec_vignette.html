@@ -437,9 +437,9 @@ implementations in terms of accuracy of results and run-time cost.</p>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>sm <span class="ot">&lt;-</span> <span class="fu">summary</span>(compCost)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>costRatioPL <span class="ot">&lt;-</span> sm<span class="sc">$</span>mean[<span class="dv">2</span>]<span class="sc">/</span>sm<span class="sc">$</span>mean[<span class="dv">1</span>] <span class="co"># ratio of computational time means</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(costRatioPL)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 236.2409</span></span></code></pre></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 236.5175</span></span></code></pre></div>
 <p>For homological dimension <span class="math inline">\(H_0\)</span>,
-it took <code>TDA::landscape()</code> about 236 times more time than
+it took <code>TDA::landscape()</code> about 237 times more time than
 <code>TDAvec::computePL()</code>. Similarly, we can compare
 <code>TDA::silhouette()</code> and <code>TDAvec::computePL()</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ps1 <span class="ot">&lt;-</span> <span class="fu">computePS</span>(D,<span class="at">homDim =</span> <span class="dv">0</span>, <span class="at">p =</span> <span class="dv">1</span>,scaleSeq)</span>
@@ -455,7 +455,7 @@ it took <code>TDA::landscape()</code> about 236 times more time than
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>sm <span class="ot">&lt;-</span> <span class="fu">summary</span>(compCost)</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>costRatioPS <span class="ot">&lt;-</span> sm<span class="sc">$</span>mean[<span class="dv">2</span>]<span class="sc">/</span>sm<span class="sc">$</span>mean[<span class="dv">1</span>]</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(costRatioPS)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 74.44268</span></span></code></pre></div>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 71.20121</span></span></code></pre></div>
 <p>To discretize the <em>persistent entropy summary function</em>,
 <em>Euler characteristic curve</em> and <em>Betti curve</em>, we employ
 a different vectorization scheme. Rather than evaluating a summary

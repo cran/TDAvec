@@ -48,7 +48,7 @@ NumericVector computeVPB(NumericMatrix D, int homDim,
       double d = ySeq[i+1];
       vpb[i] = 0;
       for(int j=0; j<y.size(); ++j) {
-        if( (y[j] > c - lambda[j]) & (y[j] < d+lambda[j])) {
+        if( (y[j] > c - lambda[j]) && (y[j] < d+lambda[j])) {
           double y_cd = y[j];
           double lambda_cd = lambda[j];
           double yMin = std::max(c, y_cd - lambda_cd);
