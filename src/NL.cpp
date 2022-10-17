@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericVector computePES(NumericMatrix D, int homDim, NumericVector scaleSeq){
+NumericVector computeNL(NumericMatrix D, int homDim, NumericVector scaleSeq){
   int n_rows = 0; // number of rows with the correct dimension
   int scaleLen = scaleSeq.size()-1;
   for(int i=0;i<D.nrow();++i){
@@ -24,15 +24,14 @@ NumericVector computePES(NumericMatrix D, int homDim, NumericVector scaleSeq){
     }
   }
  
-  NumericVector lL = (y - x)/sum(y-x);
-  NumericVector entr = -lL*log10(lL)/log10(2);
-  
-  NumericVector pes(scaleLen);
+  NumericVector lL = (y - x)/sum(y-x); //compute weights
+
+  NumericVector nl(scaleLen);
   NumericVector b(n);
   for (int k=0;k<scaleLen;++k){
     b = pmin(scaleSeq[k+1],y)-pmax(scaleSeq[k],x);
-    pes[k] = sum(entr*pmax(0,b))/(scaleSeq[k+1]-scaleSeq[k]);
+    nl[k] = sum(lL*pmax(0,b))/(scaleSeq[k+1]-scaleSeq[k]);
   }
-  return pes; 
+  return nl; 
 }
 

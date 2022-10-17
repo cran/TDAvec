@@ -5,7 +5,7 @@
 \title{A Vector Summary of the Betti Curve}
 
 \description{
-For a given persistence diagram \eqn{D=\{(b_i,d_i)\}_{i=1}^N}, \code{computeVAB()} vectorizes the Betti Curve \deqn{\beta(t)=\sum_{i=1}^N w(b_i,d_i) 1_{[b_i,d_i)}(t),} where the weight function  \eqn{w(b,d)\equiv 1}
+For a given persistence diagram \eqn{D=\{(b_i,d_i)\}_{i=1}^N}, \code{computeVAB()} vectorizes the Betti Curve \deqn{\beta(t)=\sum_{i=1}^N w(b_i,d_i)\bold 1_{[b_i,d_i)}(t),} where the weight function  \eqn{w(b,d)\equiv 1}
 }
 
 \usage{
@@ -24,7 +24,7 @@ computeVAB(D, homDim, scaleSeq)
 \value{
 A numeric vector whose elements are the average values of the Betti curve computed between each pair of
 consecutive scale points of \code{scaleSeq}=\eqn{\{t_1,t_2,\ldots,t_n\}}:
-\deqn{(\frac{1}{\Delta t_1}\int_{t_1}^{t_2}\beta(t)dt,\frac{1}{\Delta t_2}\int_{t_2}^{t_3}\beta(t)dt,\ldots,\frac{1}{\Delta t_{n-1}}\int_{t_{n-1}}^{t_n}\beta(t)dt),}
+\deqn{\Big(\frac{1}{\Delta t_1}\int_{t_1}^{t_2}\beta(t)dt,\frac{1}{\Delta t_2}\int_{t_2}^{t_3}\beta(t)dt,\ldots,\frac{1}{\Delta t_{n-1}}\int_{t_{n-1}}^{t_n}\beta(t)dt\Big),}
 where \eqn{\Delta t_k=t_{k+1}-t_k}
 }
 

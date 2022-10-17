@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericVector computePL(NumericMatrix D, int homDim, NumericVector scaleSeq,int k){
+NumericVector computePL(NumericMatrix D, int homDim, NumericVector scaleSeq,int k=1){
   int n_rows = 0; // number of rows with the correct dimension
   for(int i=0;i<D.nrow();++i){
     if(D(i,0) == homDim){

@@ -5,10 +5,7 @@
 \title{A Vector Summary of the Euler Characteristic Curve}
 
 \description{
-Vectorizes the Euler characteristic curve
-\deqn{
-\chi(t)=\sum_{k=0}^d (-1)^k\beta_k(t),} where \eqn{\beta_0,\beta_1,\ldots,\beta_d
-} are the Betti curves corresponding to persistence diagrams \eqn{D_0,D_1,\ldots,D_d} of dimeansions \eqn{0,1,\ldots,d} respectively, all computed from the same filtration
+Vectorizes the Euler characteristic curve \deqn{\chi(t)=\sum_{k=0}^d (-1)^k\beta_k(t),} where \eqn{\beta_0,\beta_1,\ldots,\beta_d} are the Betti curves corresponding to persistence diagrams \eqn{D_0,D_1,\ldots,D_d} of dimeansions \eqn{0,1,\ldots,d} respectively, all computed from the same filtration
 }
 
 \usage{
@@ -27,7 +24,7 @@ computeECC(D, maxhomDim, scaleSeq)
 \value{
 A numeric vector whose elements are the average values of the Euler characteristic curve computed between each pair of
 consecutive scale points of \code{scaleSeq}=\eqn{\{t_1,t_2,\ldots,t_n\}}:
-\deqn{(\frac{1}{\Delta t_1}\int_{t_1}^{t_2}\chi(t)dt,\frac{1}{\Delta t_2}\int_{t_2}^{t_3}\chi(t)dt,\ldots,\frac{1}{\Delta t_{n-1}}\int_{t_{n-1}}^{t_n}\chi(t)dt),}
+\deqn{\Big(\frac{1}{\Delta t_1}\int_{t_1}^{t_2}\chi(t)dt,\frac{1}{\Delta t_2}\int_{t_2}^{t_3}\chi(t)dt,\ldots,\frac{1}{\Delta t_{n-1}}\int_{t_{n-1}}^{t_n}\chi(t)dt\Big),}
 where \eqn{\Delta t_k=t_{k+1}-t_k}
 }
 
@@ -38,16 +35,16 @@ where \eqn{\Delta t_k=t_{k+1}-t_k}
 }
 
 \examples{
-N <- 100
+N <- 100 
 set.seed(123)
 # sample N points uniformly from unit circle and add Gaussian noise
 X <- TDA::circleUnif(N,r=1) + rnorm(2*N,mean = 0,sd = 0.2)
 
 # compute a persistence diagram using the Rips filtration built on top of X
-D <- TDA::ripsDiag(X,maxdimension = 1,maxscale = 2)$diagram
+D <- TDA::ripsDiag(X,maxdimension = 1,maxscale = 2)$diagram 
 
 scaleSeq = seq(0,2,length.out=11) # sequence of scale values
 
-# compute ECC
+# compute ECC 
 computeECC(D,maxhomDim=1,scaleSeq)
 }

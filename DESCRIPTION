@@ -1,7 +1,7 @@
 Package: TDAvec
 Type: Package
 Title: Vector Summaries of Persistence Diagrams
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
   person("Umar","Islambekov", email = "iumar@bgsu.edu", role=c("aut")), 
   person("Alexey", "Luchinsky", email = "aluchi@bgsu.edu", role = c("aut", "cre")),
@@ -17,11 +17,11 @@ LinkingTo: Rcpp
 Suggests: knitr
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2022-08-22 22:07:34 UTC; luchinsky
-RoxygenNote: 7.2.0
+Packaged: 2022-10-17 13:58:07 UTC; luchinsky
+RoxygenNote: 7.2.1
 Author: Umar Islambekov [aut],
   Alexey Luchinsky [aut, cre],
   Hasani Pathirana [ctb]
 Maintainer: Alexey Luchinsky <aluchi@bgsu.edu>
 Repository: CRAN
-Date/Publication: 2022-08-23 13:40:01 UTC
+Date/Publication: 2022-10-17 14:22:33 UTC

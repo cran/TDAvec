@@ -24,20 +24,16 @@ sum(D[,1]==2) # number of voids
 
 ## -----------------------------------------------------------------------------
 plot(D)
-# the solid dots represent connected components
-# the red triangles represent loops
 
 ## -----------------------------------------------------------------------------
 # sequence of scale values to vectorize the summary function
 scaleSeq = seq(0,2,length.out=11) 
-# compute the PL and PS summaries for homological dimension H_0
+# compute the PL vector summary for homological dimension H_0
 computePL(D,homDim = 0,scaleSeq,k=1)
-computePS(D,homDim = 0,scaleSeq,p=1)
 
 ## -----------------------------------------------------------------------------
-# compute the PL and PS summaries for homological dimension H_1
+# compute the PL vectory summary for homological dimension H_1
 computePL(D,homDim = 1,scaleSeq,k=1)
-computePS(D,homDim = 1,scaleSeq,p=1)
 
 ## -----------------------------------------------------------------------------
 pl1 <- computePL(D,homDim = 0,k=1,scaleSeq)
@@ -51,16 +47,23 @@ compCost <- microbenchmark(
 )
 sm <- summary(compCost)
 costRatioPL <- sm$mean[2]/sm$mean[1] # ratio of computational time means
-print(costRatioPL)
 
 ## -----------------------------------------------------------------------------
+n <- 101
+scaleSeq = seq(0,2,length.out=n)
 ps1 <- computePS(D,homDim = 0, p = 1,scaleSeq)
-ps2 <- as.vector(silhouette(D,dimension = 0,p = 1, tseq = scaleSeq))
-all.equal(ps1,ps2) # -> TRUE (the results are the same)
+ps2 <- as.vector(silhouette(D,dimension = 0,p = 1,tseq = scaleSeq))
+
+# plot two vector summaries
+plot(scaleSeq[1:(n-1)]+1/(n-1),ps1,
+     type="l",col="red",xlab="x",ylab="y",lty=1)
+lines(scaleSeq,ps2,type='l',col='blue',lty=2)
+legend(1.48, 0.122, legend=c("TDAvec","TDA"),
+       col=c("red","blue"),lty=1:2,cex=0.7)
 
 compCost <- microbenchmark(
-  computePS(D,homDim = 0, p = 1,scaleSeq),
-  silhouette(D,dimension = 0,p = 1, tseq = scaleSeq),
+  computePS(D,homDim = 0,p = 1,scaleSeq),
+  silhouette(D,dimension = 0,p = 1,tseq = scaleSeq),
   times = 500
 )
 sm <- summary(compCost)
@@ -68,6 +71,9 @@ costRatioPS <- sm$mean[2]/sm$mean[1]
 print(costRatioPS)
 
 ## -----------------------------------------------------------------------------
+# sequence of scale values to vectorize the summary function
+scaleSeq = seq(0,2,length.out=11) 
+
 # Persistent Entropy Summary (PES) function
 # compute PES for homological dimension H0
 computePES(D,homDim = 0,scaleSeq) 
@@ -83,39 +89,44 @@ computeVAB(D,homDim = 0,scaleSeq)
 # compute VAB for homological dimension H1
 computeVAB(D,homDim = 1,scaleSeq)
 
+# Normalized Life (NL) Curve 
+# compute NL for homological dimension H0
+computeNL(D,homDim = 0,scaleSeq) 
+# compute NL for homological dimension H1
+computeNL(D,homDim = 1,scaleSeq)
+
 ## -----------------------------------------------------------------------------
 D[,3] <- D[,3] - D[,2] 
 colnames(D)[3] <- "Persistence"
 
 ## -----------------------------------------------------------------------------
 # Persistence Image (PI)
-res <- 5 # resolution or grid size
+resB <- 5 # resolution (or grid size) along the birth axis
+resP <- 5 # resolution (or grid size) along the persistence axis 
 # find min and max persistence values
 minPH0 <- min(D[D[,1]==0,3]); maxPH0 <- max(D[D[,1]==0,3])
-sigma <- 0.5*(maxPH0-minPH0)/res # default way of selecting the standard deviation sigma of the Gaussians on top of each point of the diagram
 # construct one-dimensional grid of scale values
-ySeqH0 <- seq(minPH0,maxPH0,length.out=res+1)
+ySeqH0 <- seq(minPH0,maxPH0,length.out=resP+1)
+# default way of selecting the standard deviation sigma of the Gaussians on top of each point of the diagram
+sigma <- 0.5*(maxPH0-minPH0)/resP 
 # compute PI for homological dimension H_0
-computePI(D,homDim=0,xSeq=NA,ySeqH0,res,sigma)
+computePI(D,homDim=0,xSeq=NA,ySeqH0,sigma)
 
 # Vectorized Persistence Block (VPB)
-# construct one-dimensional grid of scale values
-ySeqH0 <- unique(quantile(D[D[,1]==0,3],probs = seq(0,1,by=0.2))) 
 tau <- 0.3 # parameter in [0,1] which controls the size of blocks around each point of the diagram 
 # compute VPB for homological dimension H_0
 computeVPB(D,homDim = 0,xSeq=NA,ySeqH0,tau) 
 
 ## -----------------------------------------------------------------------------
 # PI
-res <- 5 # resolution or grid size
 # find min & max birth and persistence values
 minBH1 <- min(D[D[,1]==1,2]); maxBH1 <- max(D[D[,1]==1,2])
 minPH1 <- min(D[D[,1]==1,3]); maxPH1 <- max(D[D[,1]==1,3])
-xSeqH1 <- seq(minBH1,maxBH1,length.out=res+1)
-ySeqH1 <- seq(minPH1,maxPH1,length.out=res+1)
-sigma <- 0.5*(maxPH1-minPH1)/res
+xSeqH1 <- seq(minBH1,maxBH1,length.out=resB+1)
+ySeqH1 <- seq(minPH1,maxPH1,length.out=resP+1)
+sigma <- 0.5*(maxPH1-minPH1)/resP
 # compute PI for homological dimension H_1
-computePI(D,homDim=1,xSeqH1,ySeqH1,res,sigma)
+computePI(D,homDim=1,xSeqH1,ySeqH1,sigma) 
 
 # VPB
 xSeqH1 <- unique(quantile(D[D[,1]==1,2],probs = seq(0,1,by=0.2)))

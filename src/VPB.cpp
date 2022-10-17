@@ -18,7 +18,7 @@ IntegerVector which_C(LogicalVector vec) {
 // [[Rcpp::export]]
 NumericVector computeVPB(NumericMatrix D, int homDim, 
                                 NumericVector xSeq, NumericVector ySeq,
-                                double tau) {
+                                double tau=0.3) {
   IntegerVector which_C(LogicalVector vec);
   int n_rows = 0; // number of rows with the correct dimension
   for(int i=0; i<D.nrow(); ++i) {
@@ -41,14 +41,14 @@ NumericVector computeVPB(NumericMatrix D, int homDim,
   NumericVector dy = diff(ySeq);
   int m = dy.size();
   double sumB = sum(abs(diff(x)));
-  if ((homDim==0)&(sumB==0)) {
+  if ((homDim==0)&&(sumB==0)) {
     NumericVector vpb(m); 
     for(int i=0; i<m; ++i) {
       double c = ySeq[i];
       double d = ySeq[i+1];
       vpb[i] = 0;
       for(int j=0; j<y.size(); ++j) {
-        if( (y[j] > c - lambda[j]) && (y[j] < d+lambda[j])) {
+        if( (y[j] > c - lambda[j]) & (y[j] < d+lambda[j])) {
           double y_cd = y[j];
           double lambda_cd = lambda[j];
           double yMin = std::max(c, y_cd - lambda_cd);

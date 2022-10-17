@@ -55,21 +55,31 @@ NumericVector PSurfaceHk(NumericVector point,
 // [[Rcpp::export]]
 NumericVector computePI(NumericMatrix D,int homDim,
                         NumericVector xSeq, NumericVector ySeq,
-                        int res, double sigma){
+                        double sigma){
 // D - N by 3 matrix (columns contain dimension, birth and persistence values respectively)
 int n_rows = 0; // number of rows with the correct dimension
   for(int i=0; i<D.nrow(); ++i) {
-    if((D(i,0) == homDim) && (Rcpp::traits::is_finite<REALSXP>(D(i,2)))){
+    if((D(i,0) == homDim)&&(Rcpp::traits::is_finite<REALSXP>(D(i,2)))){
       ++n_rows; 
     }
   }
   
-if (n_rows == 0) return NumericVector(pow(res,2));
+
+int resP = ySeq.size()-1; 
+int resB = xSeq.size()-1;
+if (n_rows == 0){
+  if (resB>0){
+    return NumericVector(resB*resP);
+  } 
+  else{
+    return NumericVector(resP);
+  }
+}
 
 NumericMatrix D_(n_rows,2);
 int j=0;
 for(int i=0; i<D.nrow(); ++i) {
-  if((D(i,0) == homDim) && (Rcpp::traits::is_finite<REALSXP>(D(i,2)))){
+  if((D(i,0) == homDim)&&(Rcpp::traits::is_finite<REALSXP>(D(i,2)))){
     D_(j,0) = D(i,1);
     D_(j,1) = D(i,2);
     ++j;
@@ -78,19 +88,19 @@ for(int i=0; i<D.nrow(); ++i) {
 
 double minP = ySeq[0];
 double maxP = ySeq[ySeq.size()-1];
-double dy = (maxP-minP)/res;
+double dy = (maxP-minP)/resP;
 NumericVector y_lower = seq_C(minP,maxP-dy,dy);
 NumericVector y_upper = y_lower + dy;
 int Nsize;
 double sumB = sum(abs(diff(D_(_,0))));
-if ((homDim==0)&(sumB==0)) {
-  Nsize = res;
+if ((homDim==0)&&(sumB==0)) {
+  Nsize = resP;
   }else{
-  Nsize = pow(res,2);
+  Nsize = resB*resP;
 }
 NumericMatrix Psurf_mat(Nsize,n_rows);
   
-if (Nsize==res) {
+if (Nsize==resP) {
   for(int i=0; i<n_rows; ++i){
     Psurf_mat(_,i) = PSurfaceH0(D_(i,_),y_lower,y_upper,sigma,maxP);
   }
@@ -98,7 +108,7 @@ if (Nsize==res) {
 } else{
   double minB = xSeq[0];
   double maxB = xSeq[xSeq.size()-1];
-  double dx = (maxB-minB)/res;
+  double dx = (maxB-minB)/resB;
   NumericVector x_lower = seq_C(minB,maxB-dx,dx);
   NumericVector x_upper = x_lower + dx;
   for(int i=0; i<n_rows; ++i){

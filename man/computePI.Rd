@@ -19,7 +19,7 @@ is the weighting function with \eqn{p_{max}} being the maximum persistence value
 }
 
 \usage{
-computePI(D, homDim, xSeq, ySeq, res, sigma)
+computePI(D, homDim, xSeq, ySeq, sigma)
 }
 
 \arguments{
@@ -31,15 +31,13 @@ computePI(D, homDim, xSeq, ySeq, res, sigma)
 
 \item{ySeq}{numeric vector of increasing y (persistence) values used for vectorization}
 
-\item{res}{resolution parameter (or grid size). For example, if \code{res=10} and the birth values are not all equal, a \eqn{10\times 10} grid is constructed for vectorization}
-
 \item{sigma}{standard deviation of the Gaussian}
 }
 
 \value{
 A numeric vector whose elements are the average values of the persistence surface computed over each cell of the two-dimensional grid constructred from \code{xSeq}=\eqn{\{x_1,x_2,\ldots,x_n\}} and \code{ySeq}=\eqn{\{y_1,y_2,\ldots,y_m\}}:
 
-\deqn{(\frac{1}{\Delta x_1\Delta y_1}\int_{[x_1,x_2]\times [y_1,y_2]}\rho(x,y)dA,\ldots,\frac{1}{\Delta x_{n-1}\Delta y_{m-1}}\int_{[x_{n-1},x_n]\times [y_{m-1},y_m]}\rho(x,y)dA),}
+\deqn{\Big(\frac{1}{\Delta x_1\Delta y_1}\int_{[x_1,x_2]\times [y_1,y_2]}\rho(x,y)dA,\ldots,\frac{1}{\Delta x_{n-1}\Delta y_{m-1}}\int_{[x_{n-1},x_n]\times [y_{m-1},y_m]}\rho(x,y)dA\Big),}
 where \eqn{dA=dxdy}, \eqn{\Delta x_k=x_{k+1}-x_k} and \eqn{\Delta y_j=y_{j+1}-y_j}
 }
 
@@ -63,19 +61,20 @@ D <- TDA::ripsDiag(X,maxdimension = 1,maxscale = 2)$diagram
 D[,3] <- D[,3] - D[,2] 
 colnames(D)[3] <- "Persistence"
 
-res <- 5 # resolution or grid size
-  
+resB <- 5 # resolution (or grid size) along the birth axis
+resP <- 5 # resolution (or grid size) along the persistence axis 
+
 # compute PI for homological dimension H_0
 minPH0 <- min(D[D[,1]==0,3]); maxPH0 <- max(D[D[,1]==0,3])
-ySeqH0 <- seq(minPH0,maxPH0,length.out=res+1)
-sigma <- 0.5*(maxPH0-minPH0)/res 
-computePI(D,homDim=0,xSeq=NA,ySeqH0,res,sigma) 
-    
+ySeqH0 <- seq(minPH0,maxPH0,length.out=resP+1)
+sigma <- 0.5*(maxPH0-minPH0)/resP 
+computePI(D,homDim=0,xSeq=NA,ySeqH0,sigma) 
+
 # compute PI for homological dimension H_1
 minBH1 <- min(D[D[,1]==1,2]); maxBH1 <- max(D[D[,1]==1,2])
 minPH1 <- min(D[D[,1]==1,3]); maxPH1 <- max(D[D[,1]==1,3])
-xSeqH1 <- seq(minBH1,maxBH1,length.out=res+1)
-ySeqH1 <- seq(minPH1,maxPH1,length.out=res+1)
-sigma <- 0.5*(maxPH1-minPH1)/res 
-computePI(D,homDim=1,xSeqH1,ySeqH1,res,sigma) 
+xSeqH1 <- seq(minBH1,maxBH1,length.out=resB+1)
+ySeqH1 <- seq(minPH1,maxPH1,length.out=resP+1)
+sigma <- 0.5*(maxPH1-minPH1)/resP
+computePI(D,homDim=1,xSeqH1,ySeqH1,sigma) 
 }

@@ -19,7 +19,7 @@ Points of \eqn{D} with infinite death value are ignored
 }
 
 \usage{
-computePS(D, homDim, scaleSeq, p)
+computePS(D, homDim, scaleSeq, p=1)
 }
 
 \arguments{
@@ -33,8 +33,10 @@ computePS(D, homDim, scaleSeq, p)
 }
 
 \value{
-A numeric vector whose elements are the values of the \eqn{p}th power silhouette function evaluated at each point of \code{scaleSeq}=\eqn{\{t_1,t_2,\ldots,t_n\}}:
-\deqn{(\phi_p(t_1),\phi_p(t_2),\ldots,\phi_p(t_n))}
+A numeric vector whose elements are the average values of the \eqn{p}th power silhouette function computed between each pair of
+consecutive scale points of \code{scaleSeq}=\eqn{\{t_1,t_2,\ldots,t_n\}}:
+\deqn{\Big(\frac{1}{\Delta t_1}\int_{t_1}^{t_2}\phi_p(t) dt,\frac{1}{\Delta t_2}\int_{t_2}^{t_3}\phi_p(t)dt,\ldots,\frac{1}{\Delta t_{n-1}}\int_{t_{n-1}}^{t_n}\phi_p(t)dt\Big),}
+where \eqn{\Delta t_k=t_{k+1}-t_k}
 }
 
 \author{Umar Islambekov}
