@@ -485,7 +485,7 @@ vectorization:</p>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sm <span class="ot">&lt;-</span> <span class="fu">summary</span>(compCost)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>costRatioPS <span class="ot">&lt;-</span> sm<span class="sc">$</span>mean[<span class="dv">2</span>]<span class="sc">/</span>sm<span class="sc">$</span>mean[<span class="dv">1</span>]</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(costRatioPS)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.012994</span></span></code></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.554547</span></span></code></pre></div>
 <p>The <span class="math inline">\(p\)</span> in
 <code>TDAvec::computePS()</code>and <code>TDA::silhouette()</code> is
 the power of the weights for the silhouette function (by default <span class="math inline">\(p=1\)</span>). For the above example, the former

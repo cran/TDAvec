@@ -9,7 +9,7 @@ For a given persistence diagram \eqn{D=\{(b_i,p_i)\}_{i=1}^N}, \code{computeVPB(
 }
 
 \usage{
-computeVPB(D, homDim, xSeq, ySeq, tau=0.3)
+computeVPB(D, homDim, xSeq, ySeq, tau)
 }
 \arguments{
 \item{D}{matrix with three columns containing the dimension, birth and persistence values respectively}

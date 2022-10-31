@@ -41,14 +41,14 @@ NumericVector computeVPB(NumericMatrix D, int homDim,
   NumericVector dy = diff(ySeq);
   int m = dy.size();
   double sumB = sum(abs(diff(x)));
-  if ((homDim==0)&&(sumB==0)) {
+  if ((homDim==0) && (sumB==0)) {
     NumericVector vpb(m); 
     for(int i=0; i<m; ++i) {
       double c = ySeq[i];
       double d = ySeq[i+1];
       vpb[i] = 0;
       for(int j=0; j<y.size(); ++j) {
-        if( (y[j] > c - lambda[j]) & (y[j] < d+lambda[j])) {
+        if( (y[j] > c - lambda[j]) && (y[j] < d+lambda[j])) {
           double y_cd = y[j];
           double lambda_cd = lambda[j];
           double yMin = std::max(c, y_cd - lambda_cd);
