@@ -1,27 +1,28 @@
 Package: TDAvec
 Type: Package
 Title: Vector Summaries of Persistence Diagrams
-Version: 0.1.3
-Authors@R: c(
-  person("Umar","Islambekov", email = "iumar@bgsu.edu", role=c("aut")), 
-  person("Alexey", "Luchinsky", email = "aluchi@bgsu.edu", role = c("aut", "cre")),
-  person("Hasani", "Pathirana", email = "pathirh@bgsu.edu", role = "ctb")
-  )
-Description: Tools for computing various vector summaries of persistence diagrams 
-    studied in Topological Data Analysis. For improved computational efficiency, 
-    all code for the vector summaries is written in 'C++' using the 'Rcpp' package.
+Version: 0.1.4
+Authors@R: c(person(given = "Umar",
+                        family = "Islambekov",
+                        role = "aut"),
+                 person(given = "Aleksei",
+                        family = "Luchinsky",
+                        role = c("aut", "cre"),
+                        email = "aluchi@bgsu.edu"))
+Maintainer: Aleksei Luchinsky <aluchi@bgsu.edu>
+Description: Provides tools for computing various vector summaries of persistence diagrams studied in Topological Data Analysis. For improved computational efficiency, 
+    all code for the vector summaries is written in 'C++' using the 'Rcpp' and 'RcppArmadillo' packages.
 License: GPL (>= 2)
 Encoding: UTF-8
-Imports: Rcpp (>= 1.0.9), TDA, microbenchmark
-LinkingTo: Rcpp
-Suggests: knitr
+Imports: Rcpp (>= 1.0.5)
+LinkingTo: Rcpp, RcppArmadillo
+Suggests: knitr, TDAstats
 VignetteBuilder: knitr
+URL: https://github.com/uislambekov/TDAvec
+BugReports: https://github.com/uislambekov/TDAvec/issues
 NeedsCompilation: yes
-Packaged: 2022-10-31 14:40:47 UTC; luchinsky
-RoxygenNote: 7.2.1
+Packaged: 2025-02-15 15:27:53 UTC; alekseiluchinsky
 Author: Umar Islambekov [aut],
-  Alexey Luchinsky [aut, cre],
-  Hasani Pathirana [ctb]
-Maintainer: Alexey Luchinsky <aluchi@bgsu.edu>
+  Aleksei Luchinsky [aut, cre]
 Repository: CRAN
-Date/Publication: 2022-10-31 16:00:23 UTC
+Date/Publication: 2025-02-15 16:20:10 UTC
