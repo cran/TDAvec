@@ -1,7 +1,7 @@
 Package: TDAvec
 Type: Package
 Title: Vector Summaries of Persistence Diagrams
-Version: 0.1.4
+Version: 0.1.41
 Authors@R: c(person(given = "Umar",
                         family = "Islambekov",
                         role = "aut"),
@@ -21,8 +21,8 @@ VignetteBuilder: knitr
 URL: https://github.com/uislambekov/TDAvec
 BugReports: https://github.com/uislambekov/TDAvec/issues
 NeedsCompilation: yes
-Packaged: 2025-02-15 15:27:53 UTC; alekseiluchinsky
+Packaged: 2025-04-02 11:16:41 UTC; luchinsky
 Author: Umar Islambekov [aut],
   Aleksei Luchinsky [aut, cre]
 Repository: CRAN
-Date/Publication: 2025-02-15 16:20:10 UTC
+Date/Publication: 2025-04-02 11:40:01 UTC

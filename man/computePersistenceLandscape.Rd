@@ -5,8 +5,7 @@
 \title{Vector Summaries of the Persistence Landscape Functions}
 
 \description{
-For a given persistence diagram \eqn{D=\{(b_i,d_i)\}_{i=1}^N} (corresponding to a specified homological dimension),
-\code{computePersistenceLandscape()} vectorizes the first \eqn{k} persistence landscape functions
+For a given persistence diagram \eqn{D=\{(b_i,d_i)\}_{i=1}^N} (corresponding to a specified homological dimension), \code{computePersistenceLandscape()} vectorizes the first \eqn{k} persistence landscape functions
 \deqn{\lambda_j(t) = j\hbox{max}_{1\leq i \leq N} \Lambda_i(t), \quad j=1,\dots,k,}
 where \eqn{j\hbox{max}} returns the \eqn{j}th largest value and
 \deqn{\Lambda_i(t) = \left\{
@@ -38,7 +37,7 @@ computePersistenceLandscape(D, homDim, scaleSeq, k = 1, generalized = FALSE,
 
 \item{scaleSeq}{a numeric vector of increasing scale values used for vectorization.}
 
-  \item{k}{an integer specifying the number of persistence landscape functions to consider (default is 1).  Must be less than or equal to the number of points in the diagram.}
+  \item{k}{an integer specifying the number of persistence landscape functions to consider (default is 1).}
 
   \item{generalized}{a logical value indicating whether to use a generalized persistence landscape or not. Default is FALSE.}
 
@@ -95,11 +94,14 @@ D <- TDAstats::calculate_homology(X, threshold = 2)
 scaleSeq = seq(0, 2, length.out = 11) # A sequence of scale values
 
 # Compute vector summaries of the first three persistence landscape functions 
-#  for homological dimension H_1
+# for homological dimension H_1
+
 computePersistenceLandscape(D, homDim = 1, scaleSeq, k = 3)
 
-# Compute vector summaries of the first three generalized persistence landscape 
-#  functions (with triangle kernel and bandwidth h=0.2) for homological dimension H_1
+# Compute vector summaries of the first three generalized persistence 
+# landscape functions (with triangle kernel and bandwidth h=0.2) 
+# for homological dimension H_1
+
 computePersistenceLandscape(D, homDim = 1, scaleSeq, generalized = TRUE, k = 3, h = 0.2)
 
 }
